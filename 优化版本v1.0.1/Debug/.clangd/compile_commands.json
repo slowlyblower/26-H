@@ -1,0 +1,72 @@
+[
+   {
+      "directory" : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug",
+      "command"   : "clang++ -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2\" -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/Core/Include\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -xc",
+      "file"      : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/empty.c"
+   },
+   {
+      "directory" : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug",
+      "command"   : "clang++ -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2\" -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/Core/Include\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -xc",
+      "file"      : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/sensor.c"
+   },
+   {
+      "directory" : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug",
+      "command"   : "clang++ -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2\" -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/Core/Include\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -xc",
+      "file"      : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/motor.c"
+   },
+   {
+      "directory" : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug",
+      "command"   : "clang++ -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2\" -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/Core/Include\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -xc",
+      "file"      : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/encoder.c"
+   },
+   {
+      "directory" : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug",
+      "command"   : "clang++ -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2\" -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/Core/Include\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -xc",
+      "file"      : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/gyro.c"
+   },
+   {
+      "directory" : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug",
+      "command"   : "clang++ -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2\" -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/Core/Include\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -xc",
+      "file"      : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/pid.c"
+   },
+   {
+      "directory" : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug",
+      "command"   : "clang++ -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2\" -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/Core/Include\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -xc",
+      "file"      : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/state_machine.c"
+   },
+   {
+      "directory" : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug",
+      "command"   : "clang++ -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2\" -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/Core/Include\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -xc",
+      "file"      : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/main.c"
+   },
+   {
+      "directory" : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug",
+      "command"   : "clang++ -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2\" -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/Core/Include\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -xc",
+      "file"      : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug/ti_msp_dl_config.c"
+   },
+   {
+      "directory" : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug",
+      "command"   : "clang++ -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2\" -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/Core/Include\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -xc",
+      "file"      : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/lcd.c"
+   },
+   {
+      "directory" : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug",
+      "command"   : "clang++ -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2\" -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/Core/Include\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -xc",
+      "file"      : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/bmi160.c"
+   },
+   {
+      "directory" : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug",
+      "command"   : "clang++ -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2\" -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/Core/Include\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -xc",
+      "file"      : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/vision.c"
+   },
+   {
+      "directory" : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug",
+      "command"   : "clang++ -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2\" -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/Core/Include\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -xc",
+      "file"      : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/ball_pid.c"
+   },
+   {
+      "directory" : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug",
+      "command"   : "clang++ -D__MSPM0G3507__ -D__USE_SYSCONFIG__ -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2\" -I\"D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/Debug\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source/third_party/CMSIS/Core/Include\" -I\"E:/CCSIDE/mspm0_sdk_2_10_00_04/source\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"E:/CCSIDE/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -xc",
+      "file"      : "D:/CCS_Projects/empty_LP_MSPM0G3507_nortos_ticlang_2/stepper.c"
+   }
+]
