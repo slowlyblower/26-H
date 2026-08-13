@@ -22,7 +22,6 @@
 /* ================================================================
  *  全局状态
  * ================================================================ */
-static uint8_t  g_cur_task  = 2;
 static int16_t  g_last_L    = 0;       /* 上帧左轮 PWM */
 static int16_t  g_last_R    = 0;       /* 上帧右轮 PWM */
 
@@ -160,6 +159,35 @@ void line_follow(void)
     motor_set(L, R);
 }
 
+/*
+ * 循迹控制 (带速度曲线): 灰度 PD + 低通, speed=基础占空比
+ * 任务4/5/6 共用, 替代各自内联的循迹代码
+ */
+void line_follow_speed(uint16_t speed)
+{
+    if (sensor_is_line_detected()) {
+        int8_t pos = sensor_get_position();
+        static float last = 0, le = 0;
+        if (pos == -128) {
+            le = 0;
+            motor_set(speed, speed);
+        } else {
+            float f = (float)pos * 0.6f + last * 0.4f; last = f;
+            float e = 0 - f;
+            float s = e * 0.3f + (e - le) * 1.2f; le = e;
+            if (s > 40) s = 40; if (s < -40) s = -40;
+            float curve = (float)speed * (1.0f - (s>0?s:-s)/40.0f * 0.3f);
+            int16_t L = (int16_t)(curve + s);
+            int16_t R = (int16_t)(curve - s);
+            if (L < 0) L = 0; if (L > 100) L = 100;
+            if (R < 0) R = 0; if (R > 100) R = 100;
+            motor_set(L, R);
+        }
+    } else {
+        motor_set(speed, speed);
+    }
+}
+
 /* ================================================================
  *  main
  * ================================================================ */
@@ -184,7 +212,6 @@ int main(void)
 
     /* 任务选择 */
     uint8_t task = task_select();
-    g_cur_task = task;
 
     /* 驱动初始化 */
     motor_init();
@@ -242,6 +269,7 @@ int main(void)
 
         /* RX触发: 等1s→CCW20步(2s) */
         static uint8_t t5_rx_flag = 0;
+        uint8_t t5_rx_step = 0;
         while (1) {
             t5++;
 
@@ -249,7 +277,7 @@ int main(void)
             {static uint8_t ph=0;static uint16_t c=0,s=0;
             if(!t5_rx_flag&&DL_GPIO_readPins(GPIOB,DL_GPIO_PIN_3)){t5_rx_flag=1;ph=1;c=0;}
             if(ph==1){c++;if(c>=500){ph=2;c=0;s=0;}}
-            if(ph==2){c++;if(c>=100){stepper_set_speed(-1);stepper_step();s++;c=0;if(s>=20)ph=3;}}}
+            if(ph==2){c++;if(c>=100){t5_rx_step=1;s++;c=0;if(s>=20)ph=3;}}}
 
             /* 小车加速: 初速10, 每秒+4, 30封顶 */
             if (t5_speed_f < 30.0f && t5 % 500 == 0) t5_speed_f += 4.0f;
@@ -285,7 +313,12 @@ int main(void)
             if (t5_step_pos >=  t5_lim && a5 > 0) a5 = 0;
             if (t5_step_pos <= -t5_lim && a5 < 0) a5 = 0;
 
-            if (a5 != 0) {
+            if (t5_rx_step) {
+                t5_rx_step = 0;
+                stepper_set_speed(-1);
+                stepper_step();
+                delay_cycles(64000);
+            } else if (a5 != 0) {
                 stepper_set_speed(a5);
                 stepper_step();
                 t5_step_pos += (a5 > 0) ? 1 : -1;
@@ -295,25 +328,7 @@ int main(void)
             }
 
             /* 循迹(每10次更新) */
-            if (t5 % 10 == 0) {
-                if (sensor_is_line_detected()) {
-                    int8_t pos = sensor_get_position();
-                    static float lf5_last = 0, lf5_le = 0;
-                    if (pos == -128) { lf5_le = 0; motor_set(t5_speed, t5_speed); }
-                    else {
-                        float f = (float)pos * 0.6f + lf5_last * 0.4f; lf5_last = f;
-                        float e = 0 - f;
-                        float s = e * 0.3f + (e - lf5_le) * 1.2f; lf5_le = e;
-                        if (s > 40) s = 40; if (s < -40) s = -40;
-                        float t5_curve = (float)t5_speed * (1.0f - (s>0?s:-s)/40.0f * 0.3f);
-                        int16_t L = (int16_t)(t5_curve + s);
-                        int16_t R = (int16_t)(t5_curve - s);
-                        if (L < 0) L = 0; if (L > 100) L = 100;
-                        if (R < 0) R = 0; if (R > 100) R = 100;
-                        motor_set(L, R);
-                    }
-                } else motor_set(t5_speed, t5_speed);
-            }
+            if (t5 % 10 == 0) line_follow_speed(t5_speed);
 
             /* LCD (每200ms) */
             t5_elapsed++;
@@ -402,6 +417,7 @@ int main(void)
 
         /* RX触发: 等1s→CCW20步(2s) */
         static uint8_t t6_rx_flag = 0;
+        uint8_t t6_rx_step = 0;
         while (1) {
             t6++;
 
@@ -409,7 +425,7 @@ int main(void)
             {static uint8_t ph=0;static uint16_t c=0,s=0;
             if(!t6_rx_flag&&DL_GPIO_readPins(GPIOB,DL_GPIO_PIN_3)){t6_rx_flag=1;ph=1;c=0;}
             if(ph==1){c++;if(c>=500){ph=2;c=0;s=0;}}
-            if(ph==2){c++;if(c>=100){stepper_set_speed(-1);stepper_step();s++;c=0;if(s>=20)ph=3;}}}
+            if(ph==2){c++;if(c>=100){t6_rx_step=1;s++;c=0;if(s>=20)ph=3;}}}
 
             /* 小车加速: 初速10, 每秒+4, 30封顶 */
             if (t6_speed_f < 30.0f && t6 % 500 == 0) t6_speed_f += 4.0f;
@@ -451,7 +467,12 @@ int main(void)
                 a6 = (t6_step_pos > 0) ? -1 : 1;
             }
 
-            if (a6 != 0) {
+            if (t6_rx_step) {
+                t6_rx_step = 0;
+                stepper_set_speed(-1);
+                stepper_step();
+                delay_cycles(64000);
+            } else if (a6 != 0) {
                 stepper_set_speed(a6);
                 stepper_step();
                 t6_step_pos += (a6 > 0) ? 1 : -1;
@@ -461,25 +482,7 @@ int main(void)
             }
 
             /* 循迹(每10次更新) */
-            if (t6 % 10 == 0) {
-                if (sensor_is_line_detected()) {
-                    int8_t pos = sensor_get_position();
-                    static float lf6_last = 0, lf6_le = 0;
-                    if (pos == -128) { lf6_le = 0; motor_set(t6_speed, t6_speed); }
-                    else {
-                        float f = (float)pos * 0.6f + lf6_last * 0.4f; lf6_last = f;
-                        float e = 0 - f;
-                        float s = e * 0.3f + (e - lf6_le) * 1.2f; lf6_le = e;
-                        if (s > 40) s = 40; if (s < -40) s = -40;
-                        float t6_curve = (float)t6_speed * (1.0f - (s>0?s:-s)/40.0f * 0.3f);
-                        int16_t L = (int16_t)(t6_curve + s);
-                        int16_t R = (int16_t)(t6_curve - s);
-                        if (L < 0) L = 0; if (L > 100) L = 100;
-                        if (R < 0) R = 0; if (R > 100) R = 100;
-                        motor_set(L, R);
-                    }
-                } else motor_set(t6_speed, t6_speed);
-            }
+            if (t6 % 10 == 0) line_follow_speed(t6_speed);
 
             /* LCD (每200ms) */
             t6_elapsed++;
@@ -664,7 +667,7 @@ int main(void)
             long a3 = ball_pid_cascade_run3(t3_cm, t3_vel);
 
             /* 步数限位 */
-            float t3_err_abs = (t3_cm > 0) ? t3_cm : -t3_cm;
+            float t3_err_abs = fabsf(t3_cm - g_ball_pid3.target_cm);
             int32_t t3_lim = (int32_t)(t3_err_abs * 30);
             if (t3_lim < 0)   t3_lim = 0;
             if (t3_deadband_count >= 2) { if (t3_lim > 35) t3_lim = 35; }
@@ -674,7 +677,7 @@ int main(void)
 
             /* 死区判断用视觉位置, 非PID输出 */
             float t3_err_to_target = g_ball_pid3.target_cm - t3_cm;
-            uint8_t t3_in_dead = (fabsf(t3_err_to_target) < 0.5f);  /* 同死区 */
+            uint8_t t3_in_dead = (fabsf(t3_err_to_target) < g_ball_pid3.pos_deadband);
             if (t3_in_dead && !t3_was_in_deadband) {
                 t3_deadband_count++;
                 t3_was_in_deadband = 1;
@@ -716,113 +719,6 @@ int main(void)
         }
     }
 
-    /* 占位: 任务4代码已移至下方 */
-    if (0) {
-        #define T4_CENTER_X    319.0f
-        #define T4_PIX_PER_CM  28.7f
-        #define T4_BALL_CM()   ((T4_CENTER_X - g_ball_x) / T4_PIX_PER_CM)
-
-        vision_init();
-        ball_pid_init();
-        stepper_init();
-        encoder_reset_distance();
-
-        ball_pid_set_target(0);
-        stepper_enable();
-
-        lcd_set_cursor_big(0, 0); lcd_puts_big("T4 A->B");
-        uint8_t  _f4[8];
-        uint16_t t4 = 0;
-        uint32_t t4_prev_ms = 0;
-        float t4_vel = 0, t4_prev_cm = 0, t4_last_cm = 0;
-        int32_t t4_step_pos = 0;
-        uint16_t t4_speed = 0;
-        uint32_t t4_disp = 0;
-
-        while (1) {
-            t4++;
-
-            if (t4_speed < 20 && t4 % 500 == 0) t4_speed += 10;
-            if (t4_speed > 20) t4_speed = 20;
-
-            sensor_read_all(_f4);
-            encoder_update();
-            float d4 = encoder_get_distance();
-
-            float b4_cm = T4_BALL_CM();
-            if (!g_ball_valid) b4_cm = t4_last_cm; else t4_last_cm = b4_cm;
-            if (g_ball_valid && t4 - t4_prev_ms >= 50) {
-                float dt_s = (float)(t4 - t4_prev_ms) / 1000.0f;
-                if (dt_s > 0) t4_vel = (b4_cm - t4_prev_cm) / dt_s;
-                t4_prev_cm = b4_cm;
-                t4_prev_ms = t4;
-            }
-
-            long a4 = ball_pid_cascade_run(b4_cm, t4_vel);
-
-            /* 步数限位 */
-            float t4_err_abs = (b4_cm > 0) ? b4_cm : -b4_cm;
-            int32_t t4_lim  = (int32_t)(t4_err_abs * 50);
-            if (t4_lim < 0)   t4_lim = 0;
-            if (t4_lim > 70)  t4_lim = 70;
-            if (t4_step_pos >=  t4_lim && a4 > 0) a4 = 0;
-            if (t4_step_pos <= -t4_lim && a4 < 0) a4 = 0;
-
-            if (a4 != 0) {
-                stepper_set_speed(a4);
-                stepper_step();
-                t4_step_pos += (a4 > 0) ? 1 : -1;
-                delay_cycles(64000);   /* 500Hz */   /* 固定 400Hz */
-            } else {
-                delay_ms(1);
-            }
-
-            /* UART 上报 */
-            static uint32_t t4_uart_cnt = 0;
-            t4_uart_cnt++;
-            if (g_ball_valid && t4_uart_cnt >= 50) {
-                t4_uart_cnt = 0;
-                char buf[32];
-                int16_t p = (int16_t)(b4_cm * 10);
-                int16_t v = (int16_t)(t4_vel * 10);
-                int len = 0;
-                if (p < 0) { buf[len++] = '-'; p = -p; }
-                buf[len++] = '0' + (p / 100) % 10;
-                buf[len++] = '0' + (p / 10) % 10;
-                buf[len++] = '.';
-                buf[len++] = '0' + (p % 10);
-                buf[len++] = ',';
-                if (v < 0) { buf[len++] = '-'; v = -v; }
-                buf[len++] = '0' + (v / 100) % 10;
-                buf[len++] = '0' + (v / 10) % 10;
-                buf[len++] = '.';
-                buf[len++] = '0' + (v % 10);
-                buf[len++] = '\r';
-                buf[len++] = '\n';
-                buf[len] = '\0';
-                for (int i = 0; i < len; i++)
-                    DL_UART_Main_transmitDataBlocking(UART3, buf[i]);
-            }
-
-            /* LCD */
-            t4_disp++;
-            if (t4_disp >= 200) {
-                t4_disp = 0;
-                lcd_set_cursor(0, 0);
-                lcd_puts("P:"); lcd_print_int((int32_t)(b4_cm * 10));
-                lcd_puts("mm  ");
-                lcd_set_cursor(1, 0);
-                lcd_puts("V:"); lcd_print_int((int32_t)(t4_vel * 10));
-                lcd_puts("mm/s  ");
-                lcd_set_cursor(2, 0);
-                lcd_puts("Step:"); lcd_print_int(t4_step_pos);
-                lcd_set_cursor(3, 0);
-                lcd_puts("A:"); lcd_print_int((int32_t)a4);
-                lcd_puts("   ");
-            }
-        }
-    }
-
     /* ================================================================
      *  任务4: 赛题要求4 — 循迹A→B, 球稳定在中心, ≤8s, 误差≤1cm
      * ================================================================ */
@@ -857,10 +753,10 @@ int main(void)
         float t4_vel = 0, t4_prev_cm = 0, t4_last_cm = 0;
         int32_t t4_step_pos = 0;
         float    t4_speed_f = 10.0f;
-        uint32_t t4_disp = 0;
 
         /* RX触发: 等1s→CCW20步(2s) */
         static uint8_t t4_rx_flag = 0;
+        uint8_t t4_rx_step = 0;
         while (1) {
             t4++;
 
@@ -868,7 +764,7 @@ int main(void)
             {static uint8_t ph=0;static uint16_t c=0,s=0;
             if(!t4_rx_flag&&DL_GPIO_readPins(GPIOB,DL_GPIO_PIN_3)){t4_rx_flag=1;ph=1;c=0;}
             if(ph==1){c++;if(c>=500){ph=2;c=0;s=0;}}
-            if(ph==2){c++;if(c>=100){stepper_set_speed(-1);stepper_step();s++;c=0;if(s>=20)ph=3;}}}
+            if(ph==2){c++;if(c>=100){t4_rx_step=1;s++;c=0;if(s>=20)ph=3;}}}
 
             /* 小车加速: 初速12, 每秒+6, 30封顶 */
             if (t4_speed_f < 30.0f && t4 % 500 == 0) t4_speed_f += 4.0f;
@@ -903,7 +799,12 @@ int main(void)
                 a4 = (t4_step_pos > 0) ? -1 : 1;
             }
 
-            if (a4 != 0) {
+            if (t4_rx_step) {
+                t4_rx_step = 0;
+                stepper_set_speed(-1);
+                stepper_step();
+                delay_cycles(64000);
+            } else if (a4 != 0) {
                 stepper_set_speed(a4);
                 stepper_step();
                 t4_step_pos += (a4 > 0) ? 1 : -1;
@@ -913,25 +814,7 @@ int main(void)
             }
 
             /* 循迹(每10次更新) */
-            if (t4 % 10 == 0) {
-                if (sensor_is_line_detected()) {
-                    int8_t pos = sensor_get_position();
-                    static float lf4_last = 0, lf4_le = 0;
-                    if (pos == -128) { lf4_le = 0; motor_set(t4_speed, t4_speed); }
-                    else {
-                        float f = (float)pos * 0.6f + lf4_last * 0.4f; lf4_last = f;
-                        float e = 0 - f;
-                        float s = e * 0.3f + (e - lf4_le) * 1.2f; lf4_le = e;
-                        if (s > 40) s = 40; if (s < -40) s = -40;
-                        float t4_curve = (float)t4_speed * (1.0f - (s>0?s:-s)/40.0f * 0.3f);
-                        int16_t L = (int16_t)(t4_curve + s);
-                        int16_t R = (int16_t)(t4_curve - s);
-                        if (L < 0) L = 0; if (L > 100) L = 100;
-                        if (R < 0) R = 0; if (R > 100) R = 100;
-                        motor_set(L, R);
-                    }
-                } else motor_set(t4_speed, t4_speed);
-            }
+            if (t4 % 10 == 0) line_follow_speed(t4_speed);
 
             /* 到达B点: 150cm */
             if (d4 > 150.0f) {

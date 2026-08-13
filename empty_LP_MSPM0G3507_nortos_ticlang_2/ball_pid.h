@@ -25,17 +25,12 @@ typedef struct {
 
 extern BallPID_t g_ball_pid;
 extern BallPID_t g_ball_pid3;  /* 任务3独立实例 */
-extern BallPID_t g_ball_pid6;  /* 任务6独立实例 */
 
 void ball_pid_init(void);
 void ball_pid_init3(void);
-void ball_pid_init6(void);
 void ball_pid_set_target(float cm);
 void ball_pid_set_target3(float cm);
-void ball_pid_set_target6(float cm);
 long ball_pid_cascade_run(float pos_cm, float vel_cm_s);
-long ball_pid_cascade_run_nofilt(float pos_cm, float vel_cm_s);
 long ball_pid_cascade_run3(float pos_cm, float vel_cm_s);
-long ball_pid_cascade_run6(float pos_cm, float vel_cm_s);
 
 #endif

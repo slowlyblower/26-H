@@ -1,9 +1,9 @@
 /*
  * motor.h - TB6612FNG 双电机驱动 (SysConfig 引脚)
  *
- * 左: PA8(PWM) PA10(IN1) PA11(IN2)
- * 右: PB0(PWM) PB1(IN1) PB7(IN2)
- * STBY: PB14
+ * 左电机: PA12(PWM=TIMG0_CCP0) PA14(IN1) PA15(IN2)
+ * 右电机: PA13(PWM=TIMG0_CCP1) PA7(IN1)  PA16(IN2)
+ * STBY: 硬件接高
  */
 
 #ifndef MOTOR_H
